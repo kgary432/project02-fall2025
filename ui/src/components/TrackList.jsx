@@ -1,5 +1,6 @@
-import { deleteTrack, updateTrack } from '../api';
 import React from 'react';
+import { Card, Button } from 'antd';
+import { deleteTrack, updateTrack } from '../api';
 
 export default function TrackList({ tracks, refresh }) {
     async function toggleEdit(track) {
@@ -11,24 +12,35 @@ export default function TrackList({ tracks, refresh }) {
     }
 
     return (
-        <ul className="track-list">
+        <div style={{ display: 'grid', alignItems: 'center', gap: 8 }}>
             {tracks.map((track) => (
-                <li key={track.id} className="track-item">
-                    <strong>{track.title}</strong> — {track.artist}
-                    {track.album && <em> ({track.album})</em>}
-                    <div className="actions">
-                        <button onClick={() => toggleEdit(track)}>Edit</button>
-                        <button
+                <Card
+                    key={track.id}
+                    title={track.title}
+                    extra={track.artist}
+                    style={{ maxWidth: 400 }}
+                >
+                    {track.album && (
+                        <p>
+                            <em>{track.album}</em>
+                        </p>
+                    )}
+
+                    <div style={{ display: 'flex', gap: 8 }}>
+                        <Button onClick={() => toggleEdit(track)}>Edit</Button>
+
+                        <Button
+                            danger
                             onClick={async () => {
                                 await deleteTrack(track.id);
                                 refresh();
                             }}
                         >
                             Delete
-                        </button>
+                        </Button>
                     </div>
-                </li>
+                </Card>
             ))}
-        </ul>
+        </div>
     );
 }

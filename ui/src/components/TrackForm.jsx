@@ -1,6 +1,6 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
+import { Card, Input, Button } from 'antd';
 import { createTrack } from '../api';
-import React from 'react';
 
 export default function TrackForm({ onAdd }) {
     const [title, setTitle] = useState('');
@@ -20,31 +20,42 @@ export default function TrackForm({ onAdd }) {
     }
 
     return (
-        <form onSubmit={handleSubmit} className="form">
-            <input
-                placeholder="Song title"
-                value={title}
-                onChange={(e) => setTitle(e.target.value)}
-                required
-            />
-            <input
-                placeholder="Artist"
-                value={artist}
-                onChange={(e) => setArtist(e.target.value)}
-                required
-            />
-            <input
-                placeholder="Album (optional)"
-                value={album}
-                onChange={(e) => setAlbum(e.target.value)}
-            />
-            <input
-                placeholder="Genre (optional)"
-                value={genre}
-                onChange={(e) => setGenre(e.target.value)}
-            />
+        <Card title="Add New Track" style={{ maxWidth: 400 }}>
+            <form onSubmit={handleSubmit}>
+                <Input
+                    placeholder="Song title"
+                    value={title}
+                    onChange={(e) => setTitle(e.target.value)}
+                    required
+                    style={{ marginBottom: 12 }}
+                />
 
-            <button type="submit">Add Track</button>
-        </form>
+                <Input
+                    placeholder="Artist"
+                    value={artist}
+                    onChange={(e) => setArtist(e.target.value)}
+                    required
+                    style={{ marginBottom: 12 }}
+                />
+
+                <Input
+                    placeholder="Album (optional)"
+                    value={album}
+                    onChange={(e) => setAlbum(e.target.value)}
+                    style={{ marginBottom: 12 }}
+                />
+
+                <Input
+                    placeholder="Genre (optional)"
+                    value={genre}
+                    onChange={(e) => setGenre(e.target.value)}
+                    style={{ marginBottom: 12 }}
+                />
+
+                <Button type="primary" htmlType="submit" block>
+                    Add Track
+                </Button>
+            </form>
+        </Card>
     );
 }

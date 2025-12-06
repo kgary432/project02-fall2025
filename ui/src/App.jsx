@@ -1,8 +1,8 @@
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { Layout, Typography, Space } from 'antd';
 import { getTracks } from './api';
 import TrackList from './components/TrackList';
 import TrackForm from './components/TrackForm';
-import React from 'react';
 
 export default function App() {
     const [tracks, setTracks] = useState([]);
@@ -17,10 +17,18 @@ export default function App() {
     }, []);
 
     return (
-        <div className="container">
-            <h1>Favorite Music</h1>
-            <TrackForm onAdd={(t) => setTracks([...tracks, t])} />
-            <TrackList tracks={tracks} refresh={loadTracks} />
-        </div>
+        <Layout style={{ padding: 24, minHeight: '100vh' }}>
+            <div style={{ maxWidth: 500, margin: '0 auto' }}>
+                <Space direction="vertical" size={24} style={{ width: '100%' }}>
+                    <Typography.Title level={2}>
+                        Favorite Music
+                    </Typography.Title>
+
+                    <TrackForm onAdd={(t) => setTracks([...tracks, t])} />
+
+                    <TrackList tracks={tracks} refresh={loadTracks} />
+                </Space>
+            </div>
+        </Layout>
     );
 }
